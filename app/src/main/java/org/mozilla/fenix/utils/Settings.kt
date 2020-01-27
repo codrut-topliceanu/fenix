@@ -14,12 +14,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.PRIVATE
 import mozilla.components.feature.sitepermissions.SitePermissionsRules
 import mozilla.components.feature.sitepermissions.SitePermissionsRules.Action
-import mozilla.components.support.ktx.android.content.PreferencesHolder
-import mozilla.components.support.ktx.android.content.booleanPreference
-import mozilla.components.support.ktx.android.content.floatPreference
-import mozilla.components.support.ktx.android.content.intPreference
-import mozilla.components.support.ktx.android.content.longPreference
-import mozilla.components.support.ktx.android.content.stringPreference
+import mozilla.components.support.ktx.android.content.*
 import org.mozilla.fenix.BuildConfig
 import org.mozilla.fenix.Config
 import org.mozilla.fenix.FeatureFlags
@@ -93,6 +88,26 @@ class Settings private constructor(
 
     var adjustCampaignId by stringPreference(
         appContext.getPreferenceKey(R.string.pref_key_adjust_campaign),
+        default = ""
+    )
+
+    var adjustNetwork by stringPreference(
+        appContext.getPreferenceKey(R.string.pref_key_adjust_network),
+        default = ""
+    )
+
+    var adjustAdGroup by stringPreference(
+        appContext.getPreferenceKey(R.string.pref_key_adjust_adgroup),
+        default = ""
+    )
+
+    var adjustCreative by stringPreference(
+        appContext.getPreferenceKey(R.string.pref_key_adjust_creative),
+        default = ""
+    )
+
+    var adjustInstallTimestamp by stringPreference(
+        appContext.getPreferenceKey(R.string.pref_key_adjust_install_timestamp),
         default = ""
     )
 
@@ -223,14 +238,14 @@ class Settings private constructor(
                 BrowsingMode.Normal
             }
         }
-
         set(value) {
             val lastKnownModeWasPrivate = (value == BrowsingMode.Private)
 
             preferences.edit()
                 .putBoolean(
-                appContext.getPreferenceKey(R.string.pref_key_last_known_mode_private),
-                    lastKnownModeWasPrivate)
+                    appContext.getPreferenceKey(R.string.pref_key_last_known_mode_private),
+                    lastKnownModeWasPrivate
+                )
                 .apply()
 
             field = value
