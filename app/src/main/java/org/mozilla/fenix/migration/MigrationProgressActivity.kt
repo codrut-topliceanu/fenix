@@ -60,7 +60,6 @@ class MigrationProgressActivity : AbstractMigrationProgressActivity() {
                 R.string.migration_updating_app_button_text,
                 getString(R.string.app_name)
             )
-            setBackgroundColor(ContextCompat.getColor(context, R.color.grey_button_color))
         }
     }
 
@@ -69,7 +68,7 @@ class MigrationProgressActivity : AbstractMigrationProgressActivity() {
         migration_button.apply {
             isEnabled = true
             text = getString(R.string.migration_update_app_button, getString(R.string.app_name))
-            setBackgroundColor(ContextCompat.getColor(context, R.color.button_text_color))
+            setBackgroundResource(R.drawable.button_background)
             setTextColor(ContextCompat.getColor(context, R.color.white_color))
         }
         // Keep the results list up-to-date.
@@ -139,6 +138,6 @@ internal class MigrationStatusAdapter :
 
         override fun areContentsTheSame(oldItem: MigrationItem, newItem: MigrationItem) =
             oldItem.migration.javaClass.simpleName == newItem.migration.javaClass.simpleName &&
-                oldItem.status == newItem.status
+                    oldItem.status == newItem.status
     }
 }
