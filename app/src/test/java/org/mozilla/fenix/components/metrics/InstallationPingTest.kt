@@ -4,19 +4,28 @@
 
 package org.mozilla.fenix.components.metrics
 
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.spyk
-import io.mockk.verify
-import io.mockk.Runs
-import io.mockk.just
+import android.content.Context
+import io.mockk.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
+import org.mozilla.fenix.TestApplication
+import org.mozilla.fenix.ext.settings
+import org.mozilla.fenix.utils.Settings
+import org.robolectric.annotation.Config
 
+@ExperimentalCoroutinesApi
+@Config(application = TestApplication::class)
 internal class InstallationPingTest {
 
     @Test
-    fun `checkAndSend() triggers the ping if it wasn't marked as triggered`() {
-        val mockAp = spyk(InstallationPing(mockk()), recordPrivateCalls = true)
+    fun `checkAndSend() triggers the ping if it wasn't marked as triggered`() = runBlockingTest{
+        val mockedContext: Context = mockk(relaxed = true)
+        val mockedSettings: Settings = mockk(relaxed = true)
+        mockkStatic("org.mozilla.fenix.ext.ContextKt")
+        every { mockedContext.settings() } returns mockedSettings
+        val mockAp = spyk(InstallationPing(mockedContext), recordPrivateCalls = true)
+        every { mockAp.checkMetricsNotEmpty() } returns true
         every { mockAp.wasAlreadyTriggered() } returns false
         every { mockAp.markAsTriggered() } just Runs
 
@@ -25,7 +34,7 @@ internal class InstallationPingTest {
         verify(exactly = 1) { mockAp.triggerPing() }
         // Marking the ping as triggered happens in a co-routine off the main thread,
         // so wait a bit for it.
-        verify(timeout = 5000, exactly = 1) { mockAp.markAsTriggered() }
+        verify(exactly = 1) { mockAp.markAsTriggered() }
     }
 
     @Test

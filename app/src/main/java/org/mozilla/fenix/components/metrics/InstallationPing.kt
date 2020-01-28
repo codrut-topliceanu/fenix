@@ -71,7 +71,8 @@ class InstallationPing(private val context: Context) {
     /**
      * Check that required metrics are not empty before attempting to send ping.
      * */
-    private fun checkMetricsNotEmpty(): Boolean = listOf(
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal fun checkMetricsNotEmpty(): Boolean = listOf(
         context.settings().adjustAdGroup,
         context.settings().adjustCreative,
         context.settings().adjustNetwork
