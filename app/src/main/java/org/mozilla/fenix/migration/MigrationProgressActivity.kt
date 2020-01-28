@@ -60,6 +60,7 @@ class MigrationProgressActivity : AbstractMigrationProgressActivity() {
                 R.string.migration_updating_app_button_text,
                 getString(R.string.app_name)
             )
+            setBackgroundColor(ContextCompat.getColor(context, R.color.grey_button_color))
         }
     }
 

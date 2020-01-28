@@ -26,7 +26,6 @@ class BookmarkFragmentInteractor(
     private val viewModel: BookmarksSharedViewModel,
     private val bookmarksController: BookmarkController,
     private val metrics: MetricController
-//tkfjkdsjfkldjsafds
 ) : BookmarkViewInteractor {
 
     override fun onBookmarksChanged(node: BookmarkNode) {

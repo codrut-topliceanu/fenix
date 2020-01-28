@@ -170,7 +170,7 @@
         <activity
                 android:name=".migration.MigrationProgressActivity"
                 android:launchMode="singleInstance"
-                android:exported="false">
+                android:exported="true">
         </activity>
 
         <activity android:name=".widget.VoiceSearchActivity" />
