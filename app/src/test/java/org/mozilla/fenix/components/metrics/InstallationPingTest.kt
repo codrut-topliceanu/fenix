@@ -5,12 +5,12 @@
 package org.mozilla.fenix.components.metrics
 
 import android.content.Context
+import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.spyk
-import io.mockk.Runs
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -25,7 +25,7 @@ import org.robolectric.annotation.Config
 internal class InstallationPingTest {
 
     @Test
-    fun `checkAndSend() triggers the ping if it wasn't marked as triggered`() = runBlockingTest{
+    fun `checkAndSend() triggers the ping if it wasn't marked as triggered`() = runBlockingTest {
         val mockedContext: Context = mockk(relaxed = true)
         val mockedSettings: Settings = mockk(relaxed = true)
         mockkStatic("org.mozilla.fenix.ext.ContextKt")
