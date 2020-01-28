@@ -4,7 +4,12 @@
 
 package org.mozilla.fenix.components.metrics
 
-import io.mockk.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.spyk
+import io.mockk.verify
+import io.mockk.Runs
+import io.mockk.just
 import org.junit.Test
 
 internal class InstallationPingTest {
